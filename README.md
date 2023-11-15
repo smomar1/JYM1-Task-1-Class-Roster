@@ -13,7 +13,7 @@ In this project, you will be tasked with building a C++ application to assist a 
 
 To work with the student data, you will use the following table as a reference:
 
-(![Data](<Screenshot 2023-11-15 113833-1.png>))
+![Data](<Screenshot 2023-11-15 113833-1.png>)
 
 ### Key Requirements
 
