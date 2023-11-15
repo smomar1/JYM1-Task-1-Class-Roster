@@ -1,6 +1,17 @@
 #include "student.h"
+#include "degree.h"
 #include <iostream>
 #include <string>
+
+// Implementation of degreeProgramToString
+std::string degreeProgramToString(DegreeProgram dp) {
+    switch (dp) {
+    case SECURITY: return "Security";
+    case NETWORK: return "Network";
+    case SOFTWARE: return "Software";
+    default: return "Unknown";
+    }
+}
 
 // Constructor
 Student::Student(std::string studentID, std::string firstName, std::string lastName, std::string emailAddress, int age, int daysToComplete[], DegreeProgram degreeProgram) {
@@ -52,6 +63,6 @@ void Student::print() const {
     std::cout << "Last Name: " << getLastName() << "\t";
     std::cout << "Email Address: " << getEmailAddress() << "\t";
     std::cout << "Age: " << getAge() << "\t";
-    std::cout << "daysInCourse: {" << getDaysToComplete()[0] << ", " << getDaysToComplete()[1] << ", " << getDaysToComplete()[2] << "}\t";
-    std::cout << "Degree Program: " << getDegreeProgram() << std::endl;
+    std::cout << "daysInCourse: {" << getDaysToComplete()[0] << ", " << getDaysToComplete()[1] << ", " << getDaysToComplete()[2] << "}";
+    std::cout << "Degree Program: " << degreeProgramToString(getDegreeProgram()) << std::endl; 
 }

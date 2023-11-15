@@ -22,6 +22,7 @@ public:
 	void PrintAverageDaysInCourse(std::string studentID) const;
 	void PrintInvalidEmails() const;
 	void PrintByDegreeProgram(DegreeProgram degreeProgram) const;
+	void readAndAddStudents(const std::string& filename);
 
 private:
 	Student* classRosterArray[MAX_STUDENTS]; // Array of student pointers

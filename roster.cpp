@@ -1,5 +1,7 @@
 #include "roster.h"
 #include <iostream>
+#include <fstream>
+#include <sstream>
 #include <string>
 #include "student.h"
 
@@ -37,8 +39,10 @@ Roster::Roster() {
     }
 }
 
-std::string Roster::GetStudentIDAt(int index) const
-{
+std::string Roster::GetStudentIDAt(int index) const {
+    if (index >= 0 && index < MAX_STUDENTS && classRosterArray[index] != nullptr) {
+        return classRosterArray[index]->getStudentID();
+    }
     return std::string();
 }
 
@@ -94,4 +98,48 @@ void Roster::PrintByDegreeProgram(DegreeProgram degreeProgram) const {
             this->classRosterArray[i]->print();
         }
     }
+}
+
+// New function: readAndAddStudents
+void Roster::readAndAddStudents(const std::string& filename) {
+    std::ifstream file(filename);
+    std::string line;
+    while (getline(file, line)) {
+        std::istringstream iss(line);
+        std::string studentID, firstName, lastName, emailAddress, degreeProgramStr;
+        int age, daysInCourse1, daysInCourse2, daysInCourse3;
+        DegreeProgram degreeProgram;
+
+        // Parse the line to extract student data
+        getline(iss, studentID, ',');
+        getline(iss, firstName, ',');
+        getline(iss, lastName, ',');
+        getline(iss, emailAddress, ',');
+        iss >> age;
+        iss.ignore();
+        iss >> daysInCourse1;
+        iss.ignore();
+        iss >> daysInCourse2;
+        iss.ignore();
+        iss >> daysInCourse3;
+        iss.ignore();
+        getline(iss, degreeProgramStr, ',');
+        // Convert degreeProgramStr to DegreeProgram enum value
+        if (degreeProgramStr == "SECURITY") {
+            degreeProgram = SECURITY;
+        }
+        else if (degreeProgramStr == "NETWORK") {
+            degreeProgram = NETWORK;
+        }
+        else if (degreeProgramStr == "SOFTWARE") {
+            degreeProgram = SOFTWARE;
+        }
+        else {
+            degreeProgram = SECURITY; // Default or error handling
+        }
+
+        // Add student to roster
+        this->Add(studentID, firstName, lastName, emailAddress, age, daysInCourse1, daysInCourse2, daysInCourse3, degreeProgram);
+    }
+    file.close();
 }
